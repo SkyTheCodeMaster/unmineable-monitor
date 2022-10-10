@@ -1,0 +1,30 @@
+<html>
+  <head>
+    <title>Unmineable Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="refresh" content="300">
+  </head>
+  <body>
+    <ul>
+      {% for wallet in wallet_list %}
+        <li>
+          <h2>{{ wallet.name }} - {{ wallet.wallet }} - {{ wallet.balance }}{{wallet.coin}}</h2>
+          <table>
+            <tr>
+              <th>Worker</th>
+              <th>Algo</th>
+              <th>Hashrate</th>
+            </tr>
+            {% for worker in wallet.workers %}
+              <tr>
+                <td>{{ worker.name }}</td>
+                <td>{{ worker.algo }}</td>
+                <td>{{ worker.hashrate }}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
