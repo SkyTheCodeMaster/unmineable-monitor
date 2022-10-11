@@ -20,7 +20,7 @@ with open("config.json") as f:
 
 engine = django.template.Engine()
 
-with open("template.djt") as f:
+with open("template.html") as f:
   tmpl = engine.from_string(f.read())
 
 
