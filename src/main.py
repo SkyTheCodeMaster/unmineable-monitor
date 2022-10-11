@@ -4,6 +4,7 @@ PORT = 6969
 API_VERSION = "v4"
 
 import asyncio
+import datetime
 import json
 import math
 
@@ -74,7 +75,7 @@ async def assembleTemplate(client):
   wallet_list = []
   for wallet in wallets:
     wallet_list.append(await wallet.getInformation(client))
-  return tmpl.render(django.template.Context({"wallet_list":wallet_list}))
+  return tmpl.render(django.template.Context({"wallet_list":wallet_list,"current_time":datetime.datetime.now().strftime("%c")}))
 
 routes = web.RouteTableDef()
 

@@ -5,6 +5,10 @@
     <meta http-equiv="refresh" content="300">
   </head>
   <body>
+  <div class="topnav">
+    <a class="active" href="/">Unmineable Monitor</a>
+    <a href="/">{{current_time}}</a>
+  </div>
     <ul>
       {% for wallet in wallet_list %}
         <li>
