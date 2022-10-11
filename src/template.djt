@@ -9,20 +9,21 @@
       {% for wallet in wallet_list %}
         <li>
           <h2>{{ wallet.name }} - {{ wallet.wallet }} - {{ wallet.balance }}{{wallet.coin}}</h2>
-          <table>
-            <tr>
-              <th>Worker</th>
-              <th>Algo</th>
-              <th>Hashrate</th>
-            </tr>
-            {% for worker in wallet.workers %}
+          {% for worker_list in wallet.workers %}
+            <h3>{{worker_list.algo}}</h3>
+            <table>
               <tr>
-                <td>{{ worker.name }}</td>
-                <td>{{ worker.algo }}</td>
-                <td>{{ worker.hashrate }}</td>
+                <th>Worker</th>
+                <th>Hashrate: {{worker_list.hashrate}}</th>
               </tr>
-            {% endfor %}
-          </table>
+              {% for worker in worker_list.workers %}
+                <tr>
+                  <td title="Referral: {{worker.referral}}">{{ worker.name }}</td>
+                  <td>{{ worker.hashrate }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endfor %}
         </li>
       {% endfor %}
     </ul>

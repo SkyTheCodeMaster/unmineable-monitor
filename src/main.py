@@ -8,8 +8,11 @@ import json
 import math
 
 import aiohttp
-from aiohttp import web
 import django.template
+from aiohttp import web
+from django.conf import settings
+
+settings.configure()
 
 with open("config.json") as f:
   config = json.loads(f.read())
@@ -47,10 +50,19 @@ class Wallet:
       out["balance"] = data["balance"]
     async with client.get(f"https://api.unmineable.com/{API_VERSION}/account/{uuid}/workers") as workerInfo:
       data = (await workerInfo.json())
+      sortStageOne = {}
       for k,v in data["data"].items():
+        if not v["workers"]: continue
+        totalHash = 0
         for worker in v["workers"]:
-          w = {"name":worker["name"],"algo":k,"hashrate":worker["rhr"]}
-          out["workers"].append(w)
+          if not k in sortStageOne: sortStageOne[k]={"workers":[]}
+          totalHash += int(worker["rhr"])
+          w = {"name":worker["name"],"hashrate":worker["rhr"],"referral":worker["referral"]}
+          sortStageOne[k]["workers"].append(w)
+        sortStageOne[k]["hashrate"] = str(totalHash)
+      for k,v in sortStageOne.items():
+        out["workers"].append({"algo":k,"hashrate":sortStageOne[k]['hashrate'],"workers":sortStageOne[k]["workers"]})
+
     return out
 
 wallets = []
