@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <title>Unmineable Monitor</title>
+    <link rel="stylesheet" href="styles.css">
+    <meta http-equiv="refresh" content="300">
+  </head>
+  <body>
+  <div class="topnav">
+    <a class="active" href="/">Unmineable Monitor</a>
+    <a href="/">{{current_time}}</a>
+  </div>
+    <ul>
+      {% for wallet in wallet_list %}
+        <li>
+          <h2>{{ wallet.name }} - {{ wallet.wallet }} - {{ wallet.balance }}{{wallet.coin}}</h2>
+          {% for worker_list in wallet.workers %}
+            <h3>{{worker_list.algo}}</h3>
+            <table>
+              <tr>
+                <th>Worker</th>
+                <th>Hashrate: {{worker_list.hashrate}}</th>
+              </tr>
+              {% for worker in worker_list.workers %}
+                <tr>
+                  <td title="Referral: {{worker.referral}}">{{ worker.name }}</td>
+                  <td>{{ worker.hashrate }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          {% endfor %}
+        </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
