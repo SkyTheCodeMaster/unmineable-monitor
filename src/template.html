@@ -2,12 +2,14 @@
   <head>
     <title>Unmineable Monitor</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="cache.js"></script><!-- Script to handle cache reload button -->
     <meta http-equiv="refresh" content="300">
   </head>
   <body>
   <div class="topnav">
     <a class="active" href="/">Unmineable Monitor</a>
-    <a href="/">{{current_time}}</a>
+    <a href="/" title="Current Time">{{current_time}}</a>
+    <a href="#" title="Refresh Cache" onclick="updateCache()"><img src="refresh.png" alt="refresh" width="21" height="21"></img></a>
   </div>
     <ul>
       {% for wallet in wallet_list %}
